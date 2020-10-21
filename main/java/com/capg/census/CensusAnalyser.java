@@ -6,12 +6,13 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Iterator;
 
+import com.capg.census.CensusAnalyserException.ExceptionType;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
 public class CensusAnalyser {
 
-	public int loadIndiaCensusData(String CSVFilePath) {
+	public int loadIndiaCensusData(String CSVFilePath) throws CensusAnalyserException {
 		int numOfEntries = 0;
 		try {
 			Reader reader = Files.newBufferedReader(Paths.get(CSVFilePath));
@@ -20,12 +21,12 @@ public class CensusAnalyser {
 			csvToBeanBuilder.withIgnoreLeadingWhiteSpace(true);
 			CsvToBean<IndiaCensusCSV> csvToBean = csvToBeanBuilder.build();
 			Iterator<IndiaCensusCSV> censusCSVIterator = csvToBean.iterator();
-			while(censusCSVIterator.hasNext()) {
+			while (censusCSVIterator.hasNext()) {
 				numOfEntries++;
 				IndiaCensusCSV censusData = censusCSVIterator.next();
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new CensusAnalyserException("Incorrect path of file", ExceptionType.IncorrectCensusFile);
 		}
 		return numOfEntries;
 	}
