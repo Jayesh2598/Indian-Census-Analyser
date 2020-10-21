@@ -28,7 +28,7 @@ public class CensusAnalyser {
 		} catch (IOException e) {
 			throw new CensusAnalyserException("Incorrect file type or path.", ExceptionType.IncorrectCensusFile);
 		} catch (RuntimeException e) {
-			throw new CensusAnalyserException("Incorrect delimiter", ExceptionType.IncorrectDelimiter);
+			throw new CensusAnalyserException("Incorrect delimiter/ header.", ExceptionType.IncorrectFormat);
 		}
 		return numOfEntries;
 	}
