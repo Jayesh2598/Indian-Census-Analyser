@@ -23,13 +23,32 @@ public class CensusAnalyser {
 			Iterator<IndiaCensusCSV> censusCSVIterator = csvToBean.iterator();
 			while (censusCSVIterator.hasNext()) {
 				numOfEntries++;
-				IndiaCensusCSV censusData = censusCSVIterator.next();
+				censusCSVIterator.next();
 			}
 		} catch (IOException e) {
 			throw new CensusAnalyserException("Incorrect file type or path.", ExceptionType.IncorrectCensusFile);
 		} catch (RuntimeException e) {
 			throw new CensusAnalyserException("Incorrect delimiter/ header.", ExceptionType.IncorrectFormat);
 		}
+		return numOfEntries;
+	}
+	
+	public int loadIndiaStatesCode(String CSVFilePath) throws CensusAnalyserException {
+		int numOfEntries = 0;
+		try {
+			Reader reader = Files.newBufferedReader(Paths.get(CSVFilePath));
+			CsvToBeanBuilder<IndiaStateCodeCSV> csvToBeanBuilder = new CsvToBeanBuilder<>(reader);
+			csvToBeanBuilder.withType(IndiaStateCodeCSV.class);
+			csvToBeanBuilder.withIgnoreLeadingWhiteSpace(true);
+			CsvToBean<IndiaStateCodeCSV> csvToBean = csvToBeanBuilder.build();
+			Iterator<IndiaStateCodeCSV> stateCodeCSVIterator = csvToBean.iterator();
+			while (stateCodeCSVIterator.hasNext()) {
+				numOfEntries++;
+				stateCodeCSVIterator.next();
+			}
+		} catch (IOException e) {
+			throw new CensusAnalyserException(e.getMessage(), ExceptionType.IncorrectCensusFile);
+		} 
 		return numOfEntries;
 	}
 }
