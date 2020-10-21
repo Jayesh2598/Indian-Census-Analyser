@@ -26,8 +26,8 @@ public class CensusAnalyser {
 				IndiaCensusCSV censusData = censusCSVIterator.next();
 			}
 		} catch (IOException e) {
-			throw new CensusAnalyserException("Incorrect path of file", ExceptionType.IncorrectCensusFile);
-		}
+			throw new CensusAnalyserException("Incorrect file type or path.", ExceptionType.IncorrectCensusFile);
+		} 
 		return numOfEntries;
 	}
 }
