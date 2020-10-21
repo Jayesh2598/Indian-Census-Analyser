@@ -48,7 +48,9 @@ public class CensusAnalyser {
 			}
 		} catch (IOException e) {
 			throw new CensusAnalyserException(e.getMessage(), ExceptionType.IncorrectCensusFile);
-		} 
+		} catch (RuntimeException e) {
+			throw new CensusAnalyserException(e.getMessage(), ExceptionType.IncorrectFormat);
+		}
 		return numOfEntries;
 	}
 }
