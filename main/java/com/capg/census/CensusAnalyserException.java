@@ -5,7 +5,7 @@ public class CensusAnalyserException extends Exception {
 	private static final long serialVersionUID = 1L;
 
 	public enum ExceptionType {
-		IncorrectCensusFile;
+		IncorrectCensusFile, IncorrectDelimiter;
 	}
 	
 	ExceptionType type; 
